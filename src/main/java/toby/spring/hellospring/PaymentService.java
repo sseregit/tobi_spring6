@@ -6,18 +6,15 @@ import java.time.LocalDateTime;
 
 public class PaymentService {
 
-//    private final WebApiExRateProvider exRateProvider;
-    private final SimpleExRateProvider exRateProvider;
+    private final ExRateProvider exRateProvider;
 
 
     public PaymentService() {
-//        exRateProvider = new WebApiExRateProvider();
-        exRateProvider = new SimpleExRateProvider();
+        exRateProvider = new WebApiExRateProvider();
     }
 
     public Payment prepare(Long orderId, String currency, BigDecimal foreignCurrencyAmount) throws IOException {
 
-//        BigDecimal exRate = exRateProvider.getWebExRate(currency);
         BigDecimal exRate = exRateProvider.getExRate(currency);
 
         BigDecimal convertedAmount = foreignCurrencyAmount.multiply(exRate);
