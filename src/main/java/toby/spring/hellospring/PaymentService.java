@@ -4,10 +4,21 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-public abstract class PaymentService {
+public class PaymentService {
+
+//    private final WebApiExRateProvider exRateProvider;
+    private final SimpleExRateProvider exRateProvider;
+
+
+    public PaymentService() {
+//        exRateProvider = new WebApiExRateProvider();
+        exRateProvider = new SimpleExRateProvider();
+    }
 
     public Payment prepare(Long orderId, String currency, BigDecimal foreignCurrencyAmount) throws IOException {
-        BigDecimal exRate = getExRate(currency);
+
+//        BigDecimal exRate = exRateProvider.getWebExRate(currency);
+        BigDecimal exRate = exRateProvider.getExRate(currency);
 
         BigDecimal convertedAmount = foreignCurrencyAmount.multiply(exRate);
 
@@ -15,7 +26,5 @@ public abstract class PaymentService {
 
         return new Payment(orderId, currency, foreignCurrencyAmount, exRate, convertedAmount, validUntil);
     }
-
-    abstract BigDecimal getExRate(String currency) throws IOException;
 
 }
