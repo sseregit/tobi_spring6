@@ -7,10 +7,9 @@ import java.util.List;
 
 public class Sort {
 
-    public static void main(String[] args) {
-        List<String> scores = Arrays.asList("z", "b", "spring", "java");
-        Collections.sort(scores, Comparator.comparing(String::length));
-
-        System.out.println(scores);
+    public List<String> sortByLength(List<String> list) {
+        list.sort(Comparator.comparing(String::length));
+        return list;
     }
+
 }
