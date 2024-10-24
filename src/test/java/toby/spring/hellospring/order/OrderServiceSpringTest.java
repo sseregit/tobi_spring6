@@ -56,8 +56,8 @@ class OrderServiceSpringTest {
         JdbcClient jdbcClient = JdbcClient.create(dataSource);
 
         Long no = jdbcClient.sql("""
-                    select count(*) from orders where no = :no
-                """)
+                            select count(*) from orders where no = :no
+                        """)
                 .param("no", "0300")
                 .query(Long.class).single();
 

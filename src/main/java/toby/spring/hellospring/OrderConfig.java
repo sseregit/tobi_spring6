@@ -7,6 +7,8 @@ import org.springframework.transaction.PlatformTransactionManager;
 import toby.spring.hellospring.data.JdbcOrderRepository;
 import toby.spring.hellospring.order.OrderRepository;
 import toby.spring.hellospring.order.OrderService;
+import toby.spring.hellospring.order.OrderServiceImpl;
+import toby.spring.hellospring.order.OrderServiceTxProxy;
 
 import javax.sql.DataSource;
 
@@ -23,6 +25,9 @@ public class OrderConfig {
     OrderService orderService(
             OrderRepository orderRepository,
             PlatformTransactionManager transactionManager) {
-        return new OrderService(orderRepository, transactionManager);
+        return new OrderServiceTxProxy(
+                new OrderServiceImpl(orderRepository),
+                transactionManager
+        );
     }
 }
