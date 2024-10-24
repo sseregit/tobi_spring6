@@ -12,6 +12,10 @@ public class Order {
     public Order() {
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public Order(String no, BigDecimal total) {
         this.no = no;
         this.total = total;
